@@ -38,8 +38,6 @@ Library for h3-js with String.prototype and Array.prototype
 
 ## String.prototype functions
 
-* * *
-
 <a name="valid"></a>
 
 ### .valid() ⇒ <code>Boolean</code>
