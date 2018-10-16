@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/libh3.js"></script>
+	<script type="text/javascript" src="./lib/int64-buffer.min.js"></script>
+	<script type="text/javascript" src="./lib/read.js"></script>
+	<script type="text/javascript" src="./lib/decode.js"></script>
+	<script type="text/javascript" src="./h3string.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+	var hash = "871fb4670ffffff";
+
+	console.log("h3:");
+	console.log(hash);
+	console.log("---");
+
+	/*
+	//
+	*/
+
+	console.log("h3 is valid:");
+	console.log(hash.valid());
+	console.log("---");
+	
+	console.log("h3 cell is a pentagon:");
+	console.log(hash.pentagon());
+	console.log("---");
+	
+	console.log("get resolution class (2 or 3):");
+	console.log(hash.resClass());
+	console.log("---");
+	
+	console.log("get base cell:");
+	console.log(hash.base());
+	console.log("---");
+	
+	console.log("get resolution:");
+	console.log(hash.res());
+	console.log("---");
+	
+	console.log("get geometry:");
+	console.log(hash.geo());
+	console.log("---");
+
+	/*
+	//
+	*/
+
+	console.log("transform to res 8:");
+	console.log(hash.res(8));
+	console.log("---");
+	
+	console.log("transform to res 3:");
+	console.log(hash.res(3));
+	console.log("---");
+	
+	console.log("get distance:");
+	console.log(hash.distance("8729a1d75ffffff"));
+	console.log("---");
+
+	/*
+	//
+	*/
+
+	console.log("decode:");
+	console.log(hash.h3ToBit());
+	console.log("---");
+
+</script>
+</body>
+</html>
