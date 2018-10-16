@@ -11,11 +11,19 @@
 <body>
 <script type="text/javascript">
 
-	var hash1 = "871fb4670ffffff";
-	var hash2 = "871fb03a3ffffff";
+	var hex1 = "871fb4670ffffff";
+	var hex2 = "871fb4671ffffff";
+	var hex3 = "871fb03a3ffffff";
+
+	var edge1 = "1171fb4670ffffff";
+
+	var point = [-122.0553238, 37.3615593];
+	var polygon = [[[2.2442424297,48.8402175497],[2.2992780691,48.8402175497],[2.2992780691,48.8764155228],[2.2442424297,48.8764155228],[2.2442424297,48.8402175497]]];
+
+	var hexs = ["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"];
 
 	console.log("h3:");
-	console.log(hash1);
+	console.log(hex1);
 	console.log("---");
 
 	/*
@@ -23,27 +31,64 @@
 	*/
 
 	console.log("h3 is valid:");
-	console.log(hash1.valid());
+	console.log(hex1.valid());
+	console.log("---");
+
+	console.log("h3 type:");
+	console.log(hex1.type());
+	console.log("---");
+
+	
+	console.log("h3 is neighbour:");
+	console.log(hex1.neighbour(hex2));
 	console.log("---");
 	
 	console.log("h3 cell is a pentagon:");
-	console.log(hash1.pentagon());
+	console.log(hex1.pentagon());
 	console.log("---");
 	
 	console.log("get resolution class (2 or 3):");
-	console.log(hash1.resClass());
+	console.log(hex1.resClass());
 	console.log("---");
 	
 	console.log("get base cell:");
-	console.log(hash1.base());
+	console.log(hex1.base());
 	console.log("---");
 	
 	console.log("get resolution:");
-	console.log(hash1.res());
+	console.log(hex1.res());
 	console.log("---");
 	
-	console.log("get geometry:");
-	console.log(hash1.geo());
+	console.log("get geometry point:");
+	console.log(hex1.point());
+	console.log("---");
+
+	console.log("get geometry polygon:");
+	console.log(hex1.polygon());
+	console.log("---");
+
+	console.log("get geometry linestring:");
+	console.log(edge1.linestring());
+	console.log("---");
+
+	console.log("get buffer:");
+	console.log(hex1.buffer(42, false));
+	console.log("---");
+
+	console.log("get ring:");
+	console.log(hex1.ring(42));
+	console.log("---");
+
+	console.log("get edges:");
+	console.log(hex1.edges());
+	console.log("---");
+
+	console.log("get 2 hexagons from edge (direction):");
+	console.log(edge1.direction());
+	console.log("---");
+
+	console.log("get edge from 2 hexagons (direction):");
+	console.log(hex1.direction(hex2));
 	console.log("---");
 
 	/*
@@ -51,25 +96,48 @@
 	*/
 
 	console.log("transform to res 8:");
-	console.log(hash1.res(8));
+	console.log(hex1.res(8));
 	console.log("---");
 	
 	console.log("transform to res 3:");
-	console.log(hash1.res(3));
+	console.log(hex1.res(3));
 	console.log("---");
 	
 	console.log("get distance:");
-	console.log(hash1.distance(hash2));
+	console.log(hex1.distance(hex3));
 	console.log("---");
 
 	/*
 	//
 	*/
 
-	console.log("decode:");
-	console.log(hash1.h3ToBit());
+	console.log("decode an h3 bits:");
+	console.log(hex1.h3ToBit());
 	console.log("---");
 
+	/*
+	//
+	*/
+
+	console.log("get hash from coords (point):");
+	console.log(point.hash(15));
+	console.log("---");
+
+	console.log("get hashes from coords (polygon):");
+	console.log(polygon[0].polyfill(7));
+	console.log("---");
+
+	console.log("compact hashes:");
+	console.log(hexs.compact());
+	console.log("---");
+
+	console.log("uncompact hashes:");
+	console.log(hexs.uncompact(10));
+	console.log("---");
+
+	console.log("get outline in multiPolygon array from hashes:");
+	console.log(hexs.outline(7));
+	console.log("---");
 </script>
 </body>
 </html>

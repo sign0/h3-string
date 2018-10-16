@@ -2,7 +2,26 @@
 
 function valid () {
 	var hash = this.toString();
-	return h3.h3IsValid(hash);
+	var valid = h3.h3IsValid(hash);
+	if (!valid) valid = h3.h3UnidirectionalEdgeIsValid(hash);
+	return valid;
+};
+
+function type () {
+	var hash = this.toString();
+	var valid = h3.h3IsValid(hash);
+	var type = "hexagon";
+	if (!valid) {
+		valid = h3.h3UnidirectionalEdgeIsValid(hash);
+		type = "edge";
+	}
+	if (valid) return type;
+	else return false;
+};
+
+function neighbour (neighbour) {
+	var hash = this.toString();
+	return h3.h3IndexesAreNeighbors(hash, neighbour);
 };
 
 function pentagon () {
@@ -25,10 +44,48 @@ function getRes () {
 	return h3.h3GetResolution(hash);
 };
 
-function geo () {
+function point () {
 	var hash = this.toString();
-	var geo = h3.h3ToGeo(hash);
-	return geo;
+	return h3.h3ToGeo(hash);
+};
+
+function polygon (geojson) {
+	if (geojson === undefined || geojson === null) geojson = true;
+	var hash = this.toString();
+	return h3.h3ToGeoBoundary(hash, geojson);
+};
+
+function linestring (geojson) {
+	if (geojson === undefined || geojson === null) geojson = true;
+	var hash = this.toString();
+	return h3.getH3UnidirectionalEdgeBoundary(hash, geojson);
+};
+
+function buffer (size, ordered) {
+	if (size === undefined || size === null || size === 0) size = 1;
+	var hash = this.toString();
+	if (ordered === undefined || ordered === null || ordered === false) return h3.kRing(hash, size);
+	else return h3.kRingDistances(hash, size);
+};
+
+function ring (size) {
+	if (size === undefined || size === null || size === 0) size = 1;
+	var hash = this.toString();
+	return h3.hexRing(hash, size);
+};
+
+function edges () {
+	var hash = this.toString();
+	return h3.getH3UnidirectionalEdgesFromHexagon(hash);
+};
+
+function direction (destination) {
+	var hash = this.toString();
+	if (destination) { // HEX->HEX=EDGE
+		return h3.getH3UnidirectionalEdge(hash, destination);
+	} else { // EDGE=HEX->HEX
+		return h3.getH3IndexesFromUnidirectionalEdge(hash);
+	}
 };
 
 /*
@@ -65,44 +122,66 @@ var h3ToBit = h3ToBit;
 //
 */
 
-var functions = [
-	
+var stringFunctions = [
 	["valid", valid],
+	["type", type],
+	["neighbour", neighbour],
 	["pentagon", pentagon],
 	["resClass", resClass],
 	["base", base],
 	["getRes", res],
-	["geo", geo],
+	["point", point],
+	["polygon", polygon],
+	["linestring", linestring],
+	["buffer", buffer],
+	["ring", ring],
+	["edges", edges],
+	["direction", direction],
 
 	["res", res],
 	["distance", distance],
 	
 	["h3ToBit", h3ToBit],
-
-	/*
-	h3ToGeoBoundary(h3Index, formatAsGeoJson) ⇒ Array.<Array>
-	h3ToParent(h3Index, res) ⇒ H3Index
-	h3ToChildren(h3Index, res) ⇒ Array.<H3Index>
-	kRing(h3Index, ringSize) ⇒ Array.<H3Index>
-	kRingDistances(h3Index, ringSize) ⇒ Array.<Array.<H3Index>>
-	hexRing(h3Index, ringSize) ⇒ Array.<H3Index>
-	getOriginH3IndexFromUnidirectionalEdge(edgeIndex) ⇒ H3Index
-	getDestinationH3IndexFromUnidirectionalEdge(edgeIndex) ⇒ H3Index
-	h3UnidirectionalEdgeIsValid(edgeIndex) ⇒ Boolean
-	getH3IndexesFromUnidirectionalEdge(edgeIndex) ⇒ Array.<H3Index>
-	getH3UnidirectionalEdgesFromHexagon(h3Index) ⇒ Array.<H3Index>
-	getH3UnidirectionalEdgeBoundary(edgeIndex, formatAsGeoJson) ⇒ Array.<Array>
-	*/
 ];
 
-/*
-	geoToH3(lat, lng, res) ⇒ H3Index
-	polyfill(coordinates, res, isGeoJson) ⇒ Array.<H3Index>
-	h3SetToMultiPolygon(h3Indexes, formatAsGeoJson) ⇒ Array.<Array>
-	compact(h3Set) ⇒ Array.<H3Index>
-	uncompact(compactedSet, res) ⇒ Array.<H3Index>
-	h3IndexesAreNeighbors(origin, destination) ⇒ Boolean
-	getH3UnidirectionalEdge(origin, destination) ⇒ H3Index
+function hash (resolution, latLon) {
+	if (resolution >= 0) {
+		if (!latLon) return h3.geoToH3(this[1], this[0], resolution);
+		else return h3.geoToH3(this[0], this[1], resolution);
+	} else return false;
+};
+
+function polyfill (resolution, latLon) {
+	if (resolution >= 0) {
+		if (!latLon) return h3.polyfill(this, resolution, true);
+		else return h3.polyfill(this, resolution, false);
+	} else return false;
+};
+
+function compact () {
+	return h3.compact(this);
+};
+
+function uncompact (resolution) {
+	if (resolution >= 0) return h3.uncompact(this, resolution);
+	else return false;
+};
+
+function outline (latLon) {
+	if (!latLon) return h3.h3SetToMultiPolygon(this, true);
+	else return h3.h3SetToMultiPolygon(this, false);
+};
+
+var arrayFunctions = [
+	["hash", hash],
+	["polyfill", polyfill],
+	["compact", compact],
+	["uncompact", uncompact],
+	["outline", outline],
+];
+
+/*	
+	//TOOLS
 	hexArea(res, unit) ⇒ Number
 	edgeLength(res, unit) ⇒ Number
 	numHexagons(res) ⇒ Number
@@ -110,9 +189,14 @@ var functions = [
 	radsToDegs(rad) ⇒ Number
 */
 
-for (var f in functions) {
-	String.prototype[functions[f][0]] = functions[f][1];
-	//Object.defineProperty(String, functions[f][0], { value: functions[f][1], writable: false });
+for (var f in stringFunctions) {
+	String.prototype[stringFunctions[f][0]] = stringFunctions[f][1];
+	//Object.defineProperty(String, stringFunctions[f][0], { value: stringFunctions[f][1], writable: false });
+};
+
+for (var f in arrayFunctions) {
+	Array.prototype[arrayFunctions[f][0]] = arrayFunctions[f][1];
+	//Object.defineProperty(String, stringFunctions[f][0], { value: stringFunctions[f][1], writable: false });
 };
 
 //module.exports = String;
