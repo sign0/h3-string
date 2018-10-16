@@ -11,10 +11,11 @@
 <body>
 <script type="text/javascript">
 
-	var hash = "871fb4670ffffff";
+	var hash1 = "871fb4670ffffff";
+	var hash2 = "871fb03a3ffffff";
 
 	console.log("h3:");
-	console.log(hash);
+	console.log(hash1);
 	console.log("---");
 
 	/*
@@ -22,27 +23,27 @@
 	*/
 
 	console.log("h3 is valid:");
-	console.log(hash.valid());
+	console.log(hash1.valid());
 	console.log("---");
 	
 	console.log("h3 cell is a pentagon:");
-	console.log(hash.pentagon());
+	console.log(hash1.pentagon());
 	console.log("---");
 	
 	console.log("get resolution class (2 or 3):");
-	console.log(hash.resClass());
+	console.log(hash1.resClass());
 	console.log("---");
 	
 	console.log("get base cell:");
-	console.log(hash.base());
+	console.log(hash1.base());
 	console.log("---");
 	
 	console.log("get resolution:");
-	console.log(hash.res());
+	console.log(hash1.res());
 	console.log("---");
 	
 	console.log("get geometry:");
-	console.log(hash.geo());
+	console.log(hash1.geo());
 	console.log("---");
 
 	/*
@@ -50,15 +51,15 @@
 	*/
 
 	console.log("transform to res 8:");
-	console.log(hash.res(8));
+	console.log(hash1.res(8));
 	console.log("---");
 	
 	console.log("transform to res 3:");
-	console.log(hash.res(3));
+	console.log(hash1.res(3));
 	console.log("---");
 	
 	console.log("get distance:");
-	console.log(hash.distance("8729a1d75ffffff"));
+	console.log(hash1.distance(hash2));
 	console.log("---");
 
 	/*
@@ -66,7 +67,7 @@
 	*/
 
 	console.log("decode:");
-	console.log(hash.h3ToBit());
+	console.log(hash1.h3ToBit());
 	console.log("---");
 
 </script>
