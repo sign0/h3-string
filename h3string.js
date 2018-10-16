@@ -59,7 +59,7 @@ function distance (destination) {
 //
 */
 
-var h3ToBit = decode;
+var h3ToBit = h3ToBit;
 
 /*
 //
