@@ -42,10 +42,27 @@ Library for h3-js with String.prototype and Array.prototype
 
 ### String.prototype
 
+* * *
 
-#### valid()
+<a name="valid"></a>
 
-TODO
+#### .valid() ⇒ <code>Boolean</code>
+Whether a given string represents a valid Hexagon index or Edge index.
+
+**Returns**: <code>Boolean</code> - Whether the index is valid  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".valid(); // ⇒ true
+"1171fb4670ffffff".valid(); // ⇒ true
+"871f;4670ffffff".valid(); // ⇒ false
+``` 
+
+* * *
 
 #### type()
 
