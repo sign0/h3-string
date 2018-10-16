@@ -116,7 +116,7 @@ function distance (destination) {
 //
 */
 
-var h3ToBit = h3ToBit;
+var decode = h3ToBit;
 
 /*
 //
@@ -141,7 +141,7 @@ var stringFunctions = [
 	["res", res],
 	["distance", distance],
 	
-	["h3ToBit", h3ToBit],
+	["decode", decode],
 ];
 
 function hash (resolution, latLon) {
