@@ -192,7 +192,7 @@ Return the coordinates of the center hexagon.
 <a name="polygon"></a>
 
 ### .polygon() ⇒ <code>Array</code>
-Return the coordinates of boundary hexagon.
+Return the 7 coordinates of boundary hexagon.
 
 * **Success Returns**: <code>Array</code> - [[Number, Number], [Number, Number], [Number, Number], [Number, Number], [Number, Number], [Number, Number], [Number, Number]] | Return the EPSG:4326 coordinates of H3Index boundary.
 
@@ -240,7 +240,7 @@ Return the hashes of hexagon buffering.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| <code>this</code> | <code>String</code> | H3Index : index of the edge |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
 | <code>size</code> | <code>Number</code> | The cell distance for the buffer |
 
 **Examples**:
@@ -262,7 +262,7 @@ Return the hashes of hexagon ring (buffer).
 
 | Param | Type | Description |
 | --- | --- | --- |
-| <code>this</code> | <code>String</code> | H3Index : index of the edge |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
 | <code>size</code> | <code>Number</code> | The cell distance for the buffer |
 
 **Examples**:
@@ -275,25 +275,139 @@ Return the hashes of hexagon ring (buffer).
 
 * * *
 
-### edges()
+<a name="edges"></a>
 
-TODO
+### .edges() ⇒ <code>Array</code>
+Return the 6 index edges from H3Index.
 
-### direction()
+* **Success Returns**: <code>Array</code> - [H3Index, H3Index, H3Index, H3Index, H3Index, H3Index] | Return 6 H3Index edges from H3Index hexagon.
 
-TODO
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
 
-### res()
+**Examples**:
+```javascript
+"871fb4670ffffff".edges();
+/*
+["1171fb4670ffffff", "1271fb4670ffffff", "1371fb4670ffffff", "1471fb4670ffffff", "1571fb4670ffffff", "1671fb4670ffffff"]
+*/
+```
 
-TODO
+* * *
 
-### distance()
+<a name="direction"></a>
 
-TODO
+### .direction(<destination>) ⇒ <code>Array</code>
+The array of 2 H3Index hexagon from unidirectionnal edge (direction) or the unidirectional edge from 2 H3Index hexagons (direction).
 
-### decode()
+* **Success Returns**: <code>Array</code> - [H3Index, H3Index] or [H3Index] | Return 2 H3Index hexagon from H3Index edge or return 1 H3Index edge from 2 H3Index hexagon.
 
-TODO
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+| <code>destination</code> | <code>String</code> | H3Index : index of the center hexagon (required if "this" is index of the center hexagon) |
+
+**Examples**:
+```javascript
+"1171fb4670ffffff".direction();
+/*
+["871fb4670ffffff", "871fb4671ffffff"]
+*/
+
+"871fb4670ffffff".direction("871fb4671ffffff");
+/*
+["1171fb4670ffffff"]
+*/
+```
+
+* * *
+
+<a name="res"></a>
+
+### .res(resolution) ⇒ <code>Array</code>
+Change the H3Index resolution (up or down).
+
+* **Success Returns**: <code>Array</code> - [H3Index, H3Index, H3Index, H3Index, H3Index, H3Index] | Return 6 H3Index edges from H3Index hexagon.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+| <code>resolution</code> | <code>Number</code> | Resolution value between 0 and 15 |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".res(8);
+/*
+["881fb46701fffff", "881fb46703fffff", "881fb46705fffff", "881fb46707fffff", "881fb46709fffff", "881fb4670bfffff", "881fb4670dfffff"]
+*/
+
+"871fb4670ffffff".res(3); // ["831fb4fffffffff"]
+```
+
+* * *
+
+<a name="distance"></a>
+
+### .distance(destination) ⇒ <code>Number</code>
+Get the cell distance from 2 H3Index hexagon.
+
+* **Success Returns**: <code>Number</code> - Value >= 0 or -1 if the destination is outside the base cell | Return the cell distance between 2 H3Index hexagon from the current resolution. The distance is valid only in the same base cell.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
+| <code>destination</code> | <code>String</code> | H3Index : index of the center hexagon |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".distance("871fb03a3ffffff"); //44
+```
+
+* * *
+
+<a name="decode"></a>
+
+### .decode() ⇒ <code>JSON</code>
+Decode an H3Index (bit).
+
+* **Success Returns**: <code>JSON</code> - JSON values | Return the values inside an H3Index - https://uber.github.io/h3/#/documentation/core-library/h3-index-representations.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".decode();
+/*
+{
+	cell: [15, "0001111"],
+	digits: {
+		digit1: [6, "110"],
+		digit2: [6, "110"],
+		digit3: [4, "100"],
+		digit4: [3, "11"],
+		digit5: [1, "1"],
+		digit6: [6, "110"],
+		digit8: [7, "111"],
+		digit9: [7, "111"],
+		digit10: [7, "111"],
+		digit11: [7, "111"],
+		digit12: [7, "111"],
+		digit13: [7, "111"],
+		digit14: [7, "111"],
+		digit15: [7, "111"]
+	},
+	edge: [0, "000"],
+	hash: ["871fb4670ffffff", "000100001110001111110110100011001110000111111111111111111111111"],
+	mode: [1, "0001"],
+	resolution: [7, "0111"]
+}
+*/
+```
+
+* * *
 
 
 
