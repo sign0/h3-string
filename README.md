@@ -112,7 +112,7 @@ Return true or false if the polygon is pentagon.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".pentagon("871fb4671ffffff"); // ⇒ false
+"871fb4670ffffff".pentagon(); // ⇒ false
 ``` 
 
 * * *
