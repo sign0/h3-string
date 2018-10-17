@@ -79,21 +79,61 @@ Return the type of index : "hexagon" or "edge" or false if the index is not vali
 
 * * *
 
-### type()
+<a name="neighbour"></a>
 
-TODO
+### .neighbour(hash) ⇒ <code>Boolean</code>
+Return true or false if two hexagon are neighbors.
 
-### neighbour()
+* **Success Returns**: <code>Boolean</code> - ```true``` or ```false``` | Index are neighbors
 
-TODO
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+| <code>hash</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
 
-### pentagon()
+**Examples**:
+```javascript
+"871fb4670ffffff".neighbour("871fb4671ffffff"); // true
+"871fb4670ffffff".neighbour("871fb03a3ffffff"); // ⇒ false
+``` 
 
-TODO
+* * *
 
-### regClass()
+<a name="pentagon"></a>
 
-TODO
+### .pentagon() ⇒ <code>Boolean</code>
+Return true or false if the polygon is pentagon.
+
+* **Success Returns**: <code>Boolean</code> - ```true``` or ```false``` | Index is pentagon.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".pentagon("871fb4671ffffff"); // false
+``` 
+
+* * *
+
+<a name="regClass"></a>
+
+### .regClass() ⇒ <code>Number</code>
+Return 2 or 3 for the resolution class
+
+* **Success Returns**: <code>Number</code> - ```1``` or ```2``` | Index is resolution class II or class III.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".resClass(); // true
+``` 
+
+* * *
 
 ### base()
 
