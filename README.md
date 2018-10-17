@@ -407,32 +407,132 @@ Decode an H3Index (bit).
 */
 ```
 
-* * *
-
 
 
 ## Array.prototype functions
 
 
-### hash()
+<a name="hash"></a>
 
-TODO
+### .hash(resolution) ⇒ <code>String</code>
+Encode a point coordinates in H3Index from a required resolution.
 
-### polyfill()
+* **Success Returns**: <code>String</code> - H3Index | Return the H3Index hexagon for a point coordinates.
 
-TODO
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>Array</code> | Point : EPSG:4326 coordinates (longitude, latitude) |
+| <code>resolution</code> | <code>Number</code> | Resolution value between 0 and 15 |
 
-#### compact()
+**Examples**:
+```javascript
+[-122.0553238, 37.3615593].hash(15); //"8f283470d921c65"
+```
 
-TODO
+* * *
 
-### uncompact()
+<a name="polyfill"></a>
 
-TODO
+### .polyfill(resolution) ⇒ <code>Array</code>
+Encode a polygon in a set of H3Index from a required resolution.
 
-### outline()
+* **Success Returns**: <code>Array</code> - H3Index | Return the H3Index hexagons for a polygon coordinates.
 
-TODO
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>Array</code> | Polygon : EPSG:4326 coordinates (longitude, latitude) |
+| <code>resolution</code> | <code>Number</code> | Resolution value between 0 and 15 |
+
+**Examples**:
+```javascript
+var polygon = [[[2.2442424297,48.8402175497],[2.2992780691,48.8402175497],[2.2992780691,48.8764155228],[2.2442424297,48.8764155228],[2.2442424297,48.8402175497]]];
+polygon[0].polyfill(7);
+/*
+["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"]
+*/
+```
+
+* * *
+
+<a name="compact"></a>
+
+### .compact() ⇒ <code>Array</code>
+Compact a set of H3Index (from polyfill).
+
+* **Success Returns**: <code>Array</code> - H3Index | Return the H3Index hexagons for a polygon coordinates.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>Array</code> | Array of H3Index hexagon |
+
+**Examples**:
+```javascript
+["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"].compact();
+/*
+["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"]
+*/
+```
+
+* * *
+
+<a name="uncompact"></a>
+
+### .uncompact(resolution) ⇒ <code>Array</code>
+Uncompact a set of H3Index (from polyfill).
+
+* **Success Returns**: <code>Array</code> - H3Index | Return the H3Index hexagons for a polygon coordinates.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>Array</code> | Array of H3Index hexagon |
+| <code>resolution</code> | <code>Number</code> | Resolution value between 0 and 15 |
+
+**Examples**:
+```javascript
+["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"].uncompact(8);
+/*
+["881fb46291fffff", "881fb46293fffff", "881fb46295fffff", "881fb46297fffff", "881fb46299fffff", "881fb4629bfffff", "881fb4629dfffff", "881fb46741fffff", "881fb46743fffff", "881fb46745fffff", "881fb46747fffff", "881fb46749fffff", "881fb4674bfffff", "881fb4674dfffff", "881fb475a1fffff", "881fb475a3fffff", "881fb475a5fffff", "881fb475a7fffff", "881fb475a9fffff", "881fb475abfffff", "881fb475adfffff", "881fb462d1fffff", "881fb462d3fffff", "881fb462d5fffff", "881fb462d7fffff", "881fb462d9fffff", "881fb462dbfffff", "881fb462ddfffff"]
+*/
+```
+
+* * *
+
+<a name="outline"></a>
+
+### .outline(resolution) ⇒ <code>Array</code>
+Get a multiPolygon outline of a set of H3Index (from polyfill).
+
+* **Success Returns**: <code>Array</code> - [[[Number, Number], [Number, Number], ...]] | Return the EPSG:4326 coordinates of outline from H3Index hexagons.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>Array</code> | Array of H3Index hexagon |
+| <code>resolution</code> | <code>Number</code> | Resolution value between 0 and 15 |
+
+**Examples**:
+```javascript
+["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"].outline(7);
+/*
+[
+  [
+    [48.849476144178155, 2.254238615373305],
+    [48.84391432966857, 2.2705493246115935],
+    [48.8507236707005, 2.2845052936641945],
+    [48.84515836634219, 2.300808678864533],
+    [48.851962895082266, 2.314764176066189],
+    [48.864333537520835, 2.3124209047064297],
+    [48.86990097656434, 2.296115279687646],
+    [48.88227107481755, 2.293767054691801],
+    [48.88783715770979, 2.277451853447072],
+    [48.88103100807799, 2.2634871222222466],
+    [48.886593596185456, 2.2471645892250387],
+    [48.87978262923516, 2.2331993954560487],
+    [48.86740988824372, 2.235561347404659],
+    [48.861849433831644, 2.2518816282067755]
+  ]
+]
+*/
+```
 
 
 
