@@ -129,7 +129,7 @@ var stringFunctions = [
 	["pentagon", pentagon],
 	["resClass", resClass],
 	["base", base],
-	["getRes", res],
+	["getRes", getRes],
 	["point", point],
 	["polygon", polygon],
 	["linestring", linestring],
