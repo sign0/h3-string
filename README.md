@@ -88,8 +88,8 @@ Return true or false if two hexagon are neighbors.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
-| <code>hash</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
+| <code>hash</code> | <code>String</code> | H3Index : index of the center hexagon |
 
 **Examples**:
 ```javascript
@@ -108,7 +108,7 @@ Return true or false if the polygon is pentagon.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
 
 **Examples**:
 ```javascript
@@ -120,7 +120,7 @@ Return true or false if the polygon is pentagon.
 <a name="regClass"></a>
 
 ### .regClass() ⇒ <code>Number</code>
-Return 2 or 3 for the resolution class
+Return 2 or 3 for the resolution class.
 
 * **Success Returns**: <code>Number</code> - ```1``` or ```2``` | Index is resolution class II or class III.
 
@@ -130,38 +130,150 @@ Return 2 or 3 for the resolution class
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".resClass(); // true
+"871fb4670ffffff".resClass(); // 3
 ``` 
 
 * * *
 
-### base()
+<a name="base"></a>
 
-TODO
+### .base() ⇒ <code>Number</code>
+Return the base cell for the H3Index.
 
-### getRes()
+* **Success Returns**: <code>Number</code> - Between ```0``` or ```122``` | Base cell of H3Index.
 
-TODO
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
 
-### point()
+**Examples**:
+```javascript
+"871fb4670ffffff".base(); // 15
+``` 
 
-TODO
+* * *
 
-### polygon()
+<a name="getRes"></a>
 
-TODO
+### .getRes() ⇒ <code>Number</code>
+Return the current resolution for the H3Index.
 
-### linestring()
+* **Success Returns**: <code>Number</code> - Between ```0``` or ```15``` | Current resolution of H3Index.
 
-TODO
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
 
-### buffer()
+**Examples**:
+```javascript
+"871fb4670ffffff".getRes(); // 7
+```
 
-TODO
+* * *
 
-### ring()
+<a name="point"></a>
 
-TODO
+### .point() ⇒ <code>Array</code>
+Return the coordinates of the center hexagon.
+
+* **Success Returns**: <code>Array</code> - [Number, Number] | Return the EPSG:4326 coordinates of H3Index center.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".point(); // [48.83959144969484, 2.3171064327484228]
+```
+
+* * *
+
+<a name="polygon"></a>
+
+### .polygon() ⇒ <code>Array</code>
+Return the coordinates of boundary hexagon.
+
+* **Success Returns**: <code>Array</code> - [[Number, Number], [Number, Number], [Number, Number], [Number, Number], [Number, Number], [Number, Number], [Number, Number]] | Return the EPSG:4326 coordinates of H3Index boundary.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the center hexagon |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".polygon();
+/*
+[[2.314764176066189, 48.851962895082266], [2.300808678864533, 48.84515836634219], [2.303153854350738, 48.83278585664873], [2.319447675404276, 48.82721920249627], [2.3333985555970544, 48.83402292293707], [2.331060231369508, 48.84639410544098], [2.314764176066189, 48.851962895082266]]
+*/
+```
+
+* * *
+
+<a name="linestring"></a>
+
+### .linestring() ⇒ <code>Array</code>
+Return the coordinates of edge hexagon.
+
+* **Success Returns**: <code>Array</code> - [[Number, Number], [Number, Number], ...] | Return the EPSG:4326 coordinates of H3Index edge.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the edge |
+
+**Examples**:
+```javascript
+"1171fb4670ffffff".linestring();
+/*
+[[2.3333985555970544, 48.83402292293707], [2.331060231369508, 48.84639410544098]]
+*/
+```
+
+* * *
+
+<a name="buffer"></a>
+
+### .buffer(size) ⇒ <code>Array</code>
+Return the hashes of hexagon buffering.
+
+* **Success Returns**: <code>Array</code> - [H3Index, H3Index, H3Index, H3Index, H3Index, H3Index, H3Index, ...] | Return all hexagons from a hexagon buffering.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the edge |
+| <code>size</code> | <code>Number</code> | The cell distance for the buffer |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".buffer(2);
+/*
+["871fb4670ffffff", "871fb4676ffffff", "871fb4672ffffff", "871fb4673ffffff", "871fb4671ffffff", "871fb4675ffffff", "871fb4674ffffff", "871fb4629ffffff", "871fb462bffffff", "871fb460dffffff", "871fb4609ffffff", "871fb4654ffffff", "871fb4655ffffff", "871fb4646ffffff", "871fb4644ffffff", "871fb4662ffffff", "871fb4666ffffff", "871fb475bffffff", "871fb475affffff"]
+*/
+```
+
+* * *
+
+<a name="ring"></a>
+
+### .ring(size) ⇒ <code>Array</code>
+Return the hashes of hexagon ring (buffer).
+
+* **Success Returns**: <code>Array</code> - [H3Index, H3Index, H3Index, H3Index, H3Index, H3Index, H3Index, ...] | Return hexagons from a hexagon ring buffering.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| <code>this</code> | <code>String</code> | H3Index : index of the edge |
+| <code>size</code> | <code>Number</code> | The cell distance for the buffer |
+
+**Examples**:
+```javascript
+"871fb4670ffffff".ring(2);
+/*
+["871fb475affffff", "871fb4629ffffff", "871fb462bffffff", "871fb460dffffff", "871fb4609ffffff", "871fb4654ffffff", "871fb4655ffffff", "871fb4646ffffff", "871fb4644ffffff", "871fb4662ffffff", "871fb4666ffffff", "871fb475bffffff"]
+*/
+```
+
+* * *
 
 ### edges()
 
