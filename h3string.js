@@ -82,7 +82,7 @@ function edges () {
 function direction (destination) {
 	var hash = this.toString();
 	if (destination) { // HEX->HEX=EDGE
-		return h3.getH3UnidirectionalEdge(hash, destination);
+		return [h3.getH3UnidirectionalEdge(hash, destination)];
 	} else { // EDGE=HEX->HEX
 		return h3.getH3IndexesFromUnidirectionalEdge(hash);
 	}
