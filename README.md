@@ -93,7 +93,7 @@ Return true or false if two hexagon are neighbors.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".neighbour("871fb4671ffffff"); // true
+"871fb4670ffffff".neighbour("871fb4671ffffff"); // ⇒ true
 "871fb4670ffffff".neighbour("871fb03a3ffffff"); // ⇒ false
 ``` 
 
@@ -112,7 +112,7 @@ Return true or false if the polygon is pentagon.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".pentagon("871fb4671ffffff"); // false
+"871fb4670ffffff".pentagon("871fb4671ffffff"); // ⇒ false
 ``` 
 
 * * *
@@ -130,7 +130,7 @@ Return 2 or 3 for the resolution class.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".resClass(); // 3
+"871fb4670ffffff".resClass(); // ⇒ 3
 ``` 
 
 * * *
@@ -148,7 +148,7 @@ Return the base cell for the H3Index.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".base(); // 15
+"871fb4670ffffff".base(); // ⇒ 15
 ``` 
 
 * * *
@@ -166,7 +166,7 @@ Return the current resolution for the H3Index.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".getRes(); // 7
+"871fb4670ffffff".getRes(); // ⇒ 7
 ```
 
 * * *
@@ -184,7 +184,7 @@ Return the coordinates of the center hexagon.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".point(); // [48.83959144969484, 2.3171064327484228]
+"871fb4670ffffff".point(); // ⇒ [48.83959144969484, 2.3171064327484228]
 ```
 
 * * *
@@ -203,7 +203,7 @@ Return the 7 coordinates of boundary hexagon.
 **Examples**:
 ```javascript
 "871fb4670ffffff".polygon();
-/*
+/* ⇒ 
 [[2.314764176066189, 48.851962895082266], [2.300808678864533, 48.84515836634219], [2.303153854350738, 48.83278585664873], [2.319447675404276, 48.82721920249627], [2.3333985555970544, 48.83402292293707], [2.331060231369508, 48.84639410544098], [2.314764176066189, 48.851962895082266]]
 */
 ```
@@ -224,7 +224,7 @@ Return the coordinates of edge hexagon.
 **Examples**:
 ```javascript
 "1171fb4670ffffff".linestring();
-/*
+/* ⇒ 
 [[2.3333985555970544, 48.83402292293707], [2.331060231369508, 48.84639410544098]]
 */
 ```
@@ -246,7 +246,7 @@ Return the hashes of hexagon buffering.
 **Examples**:
 ```javascript
 "871fb4670ffffff".buffer(2);
-/*
+/* ⇒ 
 ["871fb4670ffffff", "871fb4676ffffff", "871fb4672ffffff", "871fb4673ffffff", "871fb4671ffffff", "871fb4675ffffff", "871fb4674ffffff", "871fb4629ffffff", "871fb462bffffff", "871fb460dffffff", "871fb4609ffffff", "871fb4654ffffff", "871fb4655ffffff", "871fb4646ffffff", "871fb4644ffffff", "871fb4662ffffff", "871fb4666ffffff", "871fb475bffffff", "871fb475affffff"]
 */
 ```
@@ -268,7 +268,7 @@ Return the hashes of hexagon ring (buffer).
 **Examples**:
 ```javascript
 "871fb4670ffffff".ring(2);
-/*
+/* ⇒ 
 ["871fb475affffff", "871fb4629ffffff", "871fb462bffffff", "871fb460dffffff", "871fb4609ffffff", "871fb4654ffffff", "871fb4655ffffff", "871fb4646ffffff", "871fb4644ffffff", "871fb4662ffffff", "871fb4666ffffff", "871fb475bffffff"]
 */
 ```
@@ -289,7 +289,7 @@ Return the 6 index edges from H3Index.
 **Examples**:
 ```javascript
 "871fb4670ffffff".edges();
-/*
+/* ⇒ 
 ["1171fb4670ffffff", "1271fb4670ffffff", "1371fb4670ffffff", "1471fb4670ffffff", "1571fb4670ffffff", "1671fb4670ffffff"]
 */
 ```
@@ -310,15 +310,8 @@ The array of 2 H3Index hexagon from unidirectionnal edge (direction) or the unid
 
 **Examples**:
 ```javascript
-"1171fb4670ffffff".direction();
-/*
-["871fb4670ffffff", "871fb4671ffffff"]
-*/
-
-"871fb4670ffffff".direction("871fb4671ffffff");
-/*
-["1171fb4670ffffff"]
-*/
+"1171fb4670ffffff".direction(); // ⇒ ["871fb4670ffffff", "871fb4671ffffff"]
+"871fb4670ffffff".direction("871fb4671ffffff"); // ⇒ ["1171fb4670ffffff"]
 ```
 
 * * *
@@ -338,11 +331,11 @@ Change the H3Index resolution (up or down).
 **Examples**:
 ```javascript
 "871fb4670ffffff".res(8);
-/*
+/* ⇒ 
 ["881fb46701fffff", "881fb46703fffff", "881fb46705fffff", "881fb46707fffff", "881fb46709fffff", "881fb4670bfffff", "881fb4670dfffff"]
 */
 
-"871fb4670ffffff".res(3); // ["831fb4fffffffff"]
+"871fb4670ffffff".res(3); // ⇒ ["831fb4fffffffff"]
 ```
 
 * * *
@@ -361,7 +354,7 @@ Get the cell distance from 2 H3Index hexagon.
 
 **Examples**:
 ```javascript
-"871fb4670ffffff".distance("871fb03a3ffffff"); //44
+"871fb4670ffffff".distance("871fb03a3ffffff"); // ⇒ 44
 ```
 
 * * *
@@ -380,7 +373,7 @@ Decode an H3Index (bit).
 **Examples**:
 ```javascript
 "871fb4670ffffff".decode();
-/*
+/* ⇒ 
 {
 	cell: [15, "0001111"],
 	digits: {
@@ -426,7 +419,7 @@ Encode a point coordinates in H3Index from a required resolution.
 
 **Examples**:
 ```javascript
-[-122.0553238, 37.3615593].hash(15); //"8f283470d921c65"
+[-122.0553238, 37.3615593].hash(15); // ⇒ "8f283470d921c65"
 ```
 
 * * *
@@ -447,7 +440,7 @@ Encode a polygon in a set of H3Index from a required resolution.
 ```javascript
 var polygon = [[[2.2442424297,48.8402175497],[2.2992780691,48.8402175497],[2.2992780691,48.8764155228],[2.2442424297,48.8764155228],[2.2442424297,48.8402175497]]];
 polygon[0].polyfill(7);
-/*
+/* ⇒ 
 ["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"]
 */
 ```
@@ -468,7 +461,7 @@ Compact a set of H3Index (from polyfill).
 **Examples**:
 ```javascript
 ["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"].compact();
-/*
+/* ⇒ 
 ["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"]
 */
 ```
@@ -490,7 +483,7 @@ Uncompact a set of H3Index (from polyfill).
 **Examples**:
 ```javascript
 ["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"].uncompact(8);
-/*
+/* ⇒ 
 ["881fb46291fffff", "881fb46293fffff", "881fb46295fffff", "881fb46297fffff", "881fb46299fffff", "881fb4629bfffff", "881fb4629dfffff", "881fb46741fffff", "881fb46743fffff", "881fb46745fffff", "881fb46747fffff", "881fb46749fffff", "881fb4674bfffff", "881fb4674dfffff", "881fb475a1fffff", "881fb475a3fffff", "881fb475a5fffff", "881fb475a7fffff", "881fb475a9fffff", "881fb475abfffff", "881fb475adfffff", "881fb462d1fffff", "881fb462d3fffff", "881fb462d5fffff", "881fb462d7fffff", "881fb462d9fffff", "881fb462dbfffff", "881fb462ddfffff"]
 */
 ```
@@ -512,7 +505,7 @@ Get a multiPolygon outline of a set of H3Index (from polyfill).
 **Examples**:
 ```javascript
 ["871fb4629ffffff", "871fb4674ffffff", "871fb475affffff", "871fb462dffffff"].outline(7);
-/*
+/* ⇒ 
 [
   [
     [48.849476144178155, 2.254238615373305],
