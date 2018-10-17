@@ -306,7 +306,7 @@ The array of 2 H3Index hexagon from unidirectionnal edge (direction) or the unid
 | Param | Type | Description |
 | --- | --- | --- |
 | <code>this</code> | <code>String</code> | H3Index : index of the center hexagon or index of the edge |
-| <code>destination</code> | <code>String</code> | H3Index : index of the center hexagon (required if "this" is index of the center hexagon) |
+| <code>destination</code> | <code>String</code> | H3Index : index of the center hexagon (required only if "this" is index of the center hexagon) |
 
 **Examples**:
 ```javascript
