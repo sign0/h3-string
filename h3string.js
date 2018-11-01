@@ -1,3 +1,10 @@
+/*
+// Uber H3 documentation : https://github.com/uber/h3-js
+*/
+
+/*
+// String.prototype
+*/
 
 Object.defineProperty(String.prototype, "valid", {
 	value() {
@@ -115,10 +122,6 @@ Object.defineProperty(String.prototype, "direction", {
 	}
 });
 
-/*
-//
-*/
-
 Object.defineProperty(String.prototype, "res", {
 	value(r) {
 		var hash = this.toString();
@@ -144,7 +147,7 @@ Object.defineProperty(String.prototype, "distance", {
 });
 
 /*
-//
+// String.prototype (decode)
 */
 
 Object.defineProperty(String.prototype, "decode", {
@@ -154,7 +157,7 @@ Object.defineProperty(String.prototype, "decode", {
 });
 
 /*
-//
+// Array.prototype
 */
 
 Object.defineProperty(Array.prototype, "hash", {
